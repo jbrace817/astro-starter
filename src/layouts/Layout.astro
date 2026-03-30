@@ -1,6 +1,7 @@
 ---
 import { SEO, type Props as SEOProps } from "astro-seo";
 import "../styles/globals.css";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 
 interface Props {
   title: string;
@@ -21,5 +22,6 @@ const { title, seo } = Astro.props;
   </head>
   <body>
     <slot />
+    <TailwindIndicator />
   </body>
 </html>
