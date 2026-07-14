@@ -14,5 +14,10 @@ export default defineConfig({
   adapter: cloudflare(),
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      optimizeDeps: {
+        include: ['picomatch'],
+      },
+    },
   },
 });
