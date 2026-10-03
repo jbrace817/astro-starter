@@ -1,0 +1,46 @@
+---
+import Container from "@/components/Container";
+import { steps } from "@/data/site";
+---
+
+<section
+  id="how-it-works"
+  class="border-t border-line py-20 md:py-28 lg:py-32"
+  aria-labelledby="process-title"
+>
+  <Container>
+    <div class="grid gap-6 lg:grid-cols-12 lg:gap-10" data-reveal>
+      <h2 id="process-title" class="text-h2 lg:col-span-6">
+        How We Work: Research First
+      </h2>
+      <p
+        class="text-lead text-subtle lg:col-span-5 lg:col-start-8 lg:self-end lg:pb-2"
+      >
+        Every project starts with research. Before we design anything, we look
+        at who is winning in your town and why.
+      </p>
+    </div>
+
+    <ol
+      data-reveal
+      class="mt-14 grid gap-px overflow-hidden rounded-card bg-line sm:grid-cols-2 md:mt-20 lg:grid-cols-4"
+    >
+      {
+        steps.map((step, i) => (
+          <li class="bg-paper p-7 sm:p-8 lg:pb-12">
+            <span
+              class="text-[2.5rem] leading-none font-[350] tracking-[-0.03em] text-amber-deep"
+              aria-hidden="true"
+            >
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <h3 class="mt-10 text-xl font-medium tracking-[-0.015em] lg:mt-16">
+              {step.title}
+            </h3>
+            <p class="mt-2 text-subtle">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Container>
+</section>

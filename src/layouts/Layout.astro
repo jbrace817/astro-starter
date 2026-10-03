@@ -2,26 +2,95 @@
 import { SEO, type Props as SEOProps } from "astro-seo";
 import "../styles/globals.css";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
 
 interface Props {
   title: string;
+  description?: string;
   seo?: SEOProps;
 }
 
-const { title, seo } = Astro.props;
+const { title, description, seo } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<html lang="en">
+<html lang="en-US">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f3f4" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="preload"
+      href="/fonts/Mona-Sans.var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <meta name="generator" content={Astro.generator} />
-    <SEO title={title} {...seo} />
+    <!-- TODO: add openGraph once there is a share image in the new brand. -->
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical.href}
+      {...seo}
+    />
+    <script is:inline>
+      // Hide scroll-reveal elements only when motion is allowed and JS runs.
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("motion");
+      }
+    </script>
+    <slot name="head" />
   </head>
   <body>
-    <slot />
+    <a
+      href="#main"
+      class="sr-only z-50 rounded-full bg-ink px-5 py-3 text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
     <TailwindIndicator />
+
+    <script>
+      import { animate, scroll } from "motion";
+      import { onVisible, slideUp } from "@/utils/animations";
+
+      const root = document.documentElement;
+
+      if (root.classList.contains("motion")) {
+        // Subtle fade and rise as sections enter the viewport.
+        document.querySelectorAll("[data-reveal]").forEach((el) => {
+          onVisible(el, (target) => slideUp(target, { duration: 0.6 }));
+        });
+
+        // Di Renzi bar grows from the left when it comes into view.
+        document.querySelectorAll("[data-bar]").forEach((el) => {
+          onVisible(el, (target) =>
+            animate(
+              target,
+              { scaleX: [0, 1] },
+              { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+            ),
+          );
+        });
+
+        // A light take on the old hero device scroll: the frame rises a little.
+        const device = document.querySelector("[data-hero-device]");
+        if (device) {
+          scroll(animate(device, { y: [0, -40] }, { ease: "linear" }), {
+            target: device,
+            offset: ["start end", "end start"],
+          });
+        }
+      }
+    </script>
   </body>
 </html>

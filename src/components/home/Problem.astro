@@ -1,0 +1,30 @@
+---
+import Container from "@/components/Container";
+import { problems } from "@/data/site";
+---
+
+<section class="py-20 md:py-28 lg:py-32" aria-labelledby="problem-title">
+  <Container>
+    <div class="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10" data-reveal>
+      <h2 id="problem-title" class="text-h2 lg:col-span-8">
+        Most Small Business Websites Were Never Built to Be Found
+      </h2>
+      <p class="text-lead text-subtle lg:col-span-4 lg:pb-2">
+        Most sites start from a template. Nobody asks who they are up against.
+      </p>
+    </div>
+
+    <ul class="mt-14 grid gap-10 md:mt-20 md:grid-cols-3 md:gap-8">
+      {
+        problems.map((item) => (
+          <li class="border-t border-ink pt-6" data-reveal>
+            <h3 class="text-xl font-medium tracking-[-0.015em]">
+              {item.title}
+            </h3>
+            <p class="mt-2 text-subtle">{item.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</section>

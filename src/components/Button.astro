@@ -1,0 +1,48 @@
+---
+import { cn } from "@/lib/utils";
+
+// Pill buttons from the build brief.
+// signal: yellow fill, ink text. Conversion buttons only.
+// outline: ink outline on light surfaces, inverts on hover.
+// outline-light: white outline on dark surfaces, inverts on hover.
+interface Props {
+  href: string;
+  variant?: "signal" | "outline" | "outline-light";
+  size?: "md" | "lg";
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = "signal",
+  size = "lg",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const variants = {
+  signal: "bg-signal text-ink hover:brightness-[1.07]",
+  outline: "border border-ink text-ink hover:bg-ink hover:text-white",
+  "outline-light":
+    "border border-white/35 text-white hover:border-white hover:bg-white hover:text-ink",
+};
+
+const sizes = {
+  md: "h-10 px-5 text-[0.9375rem]",
+  lg: "h-13 px-7 text-base",
+};
+---
+
+<a
+  href={href}
+  class={cn(
+    "inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-[background-color,color,border-color,filter] duration-200",
+    variants[variant],
+    sizes[size],
+    className,
+  )}
+  {...rest}
+>
+  <slot />
+</a>

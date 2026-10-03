@@ -9,9 +9,12 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://oneupdigitalstudio.com',
   integrations: [react(), mdx(), sitemap(), icon()],
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    // Optimize images at build time; the site is static, so no Images binding is needed.
+    imageService: 'compile',
+  }),
   vite: {
     plugins: [tailwindcss()],
     ssr: {

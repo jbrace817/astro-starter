@@ -1,0 +1,37 @@
+---
+import { Icon } from "astro-icon/components";
+import Container from "@/components/Container";
+import { faqs } from "@/data/site";
+---
+
+<section
+  class="border-t border-line py-20 md:py-28 lg:py-32"
+  aria-labelledby="faq-title"
+>
+  <Container>
+    <div class="grid gap-10 lg:grid-cols-12">
+      <h2 id="faq-title" class="text-h2 lg:col-span-4" data-reveal>
+        Common Questions
+      </h2>
+
+      <div
+        class="divide-y divide-line border-y border-line lg:col-span-8"
+        data-reveal
+      >
+        {
+          faqs.map((faq, i) => (
+            <details class="group" open={i === 0}>
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-medium tracking-[-0.01em] sm:text-xl [&::-webkit-details-marker]:hidden">
+                {faq.q}
+                <span class="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-line transition-transform duration-200 group-open:rotate-45">
+                  <Icon name="lucide:plus" class="size-4" aria-hidden="true" />
+                </span>
+              </summary>
+              <p class="max-w-[60ch] pb-7 text-subtle">{faq.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>

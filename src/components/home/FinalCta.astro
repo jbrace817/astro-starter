@@ -1,0 +1,77 @@
+---
+import { Icon } from "astro-icon/components";
+import Container from "@/components/Container";
+import Button from "@/components/Button.astro";
+import { contact, links, serviceAreas } from "@/data/site";
+
+const town = Object.fromEntries(
+  serviceAreas.towns.map((t) => [t.name, t.href]),
+);
+const townLink =
+  "underline decoration-white/30 underline-offset-4 hover:decoration-white";
+---
+
+<section class="px-2 pb-2 sm:px-4 sm:pb-4" aria-labelledby="cta-title">
+  <div class="rounded-[1.5rem] surface-dark sm:rounded-panel">
+    <Container className="py-20 md:py-28 lg:py-32">
+      <div
+        class="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-10"
+        data-reveal
+      >
+        <h2 id="cta-title" class="text-h2 lg:col-span-6">
+          See Who Is Winning in Your Town
+        </h2>
+        <div class="lg:col-span-5 lg:col-start-8">
+          <p class="text-lead text-white/70">
+            Your free competitor report shows who ranks near you, why they rank
+            and where the openings are. It is yours to keep, whether we work
+            together or not.
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Button href={links.report}>Get Your Free Competitor Report</Button>
+            <Button href={links.bookCall} variant="outline-light">
+              Book a Call
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="mt-16 grid gap-6 border-t border-white/12 pt-8 text-sm text-white/60 md:mt-24 lg:grid-cols-12 lg:gap-10"
+      >
+        <p class="leading-relaxed lg:col-span-6">
+          Based in <a href={town.Chalfont} class={townLink}>Chalfont</a>.
+          Serving{" "}
+          <a href={town.Doylestown} class={townLink}>Doylestown</a>,{" "}
+          <a href={town.Newtown} class={townLink}>Newtown</a>,{" "}
+          <a href={town.Warrington} class={townLink}>Warrington</a>, New
+          Britain, <a href={town.Lansdale} class={townLink}>Lansdale</a> and the rest
+          of{" "}
+          <a href={serviceAreas.bucks} class={townLink}>Bucks</a> and Montgomery County.
+        </p>
+        <ul
+          class="flex flex-col gap-3 text-white/80 sm:flex-row sm:gap-8 lg:col-span-5 lg:col-start-8"
+        >
+          <li>
+            <a
+              href={contact.phoneHref}
+              class="inline-flex items-center gap-2 hover:text-white"
+            >
+              <Icon name="lucide:phone" class="size-4" aria-hidden="true" />
+              Call {contact.phone}
+            </a>
+          </li>
+          <li>
+            <a
+              href={`mailto:${contact.email}`}
+              class="inline-flex items-center gap-2 hover:text-white"
+            >
+              <Icon name="lucide:mail" class="size-4" aria-hidden="true" />
+              {contact.email}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </Container>
+  </div>
+</section>

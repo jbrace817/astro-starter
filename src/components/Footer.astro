@@ -1,0 +1,72 @@
+---
+import Container from "@/components/Container";
+import Logo from "@/components/Logo.astro";
+import { contact, footerNav } from "@/data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="pt-16 pb-10 md:pt-24">
+  <Container>
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-4">
+        <Logo class="h-8 w-auto" />
+        <p class="mt-5 max-w-[30ch] text-subtle">
+          Web design and Google Maps for Bucks County businesses. A small studio
+          in Chalfont, PA.
+        </p>
+        <p class="mt-5 flex flex-col gap-1">
+          <a href={contact.phoneHref} class="font-medium hover:underline">
+            {contact.phone}
+          </a>
+          <a
+            href={`mailto:${contact.email}`}
+            class="text-subtle hover:text-ink"
+          >
+            {contact.email}
+          </a>
+        </p>
+      </div>
+
+      <nav
+        aria-label="Footer"
+        class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:col-span-8"
+      >
+        {
+          footerNav.map((group) => (
+            <div>
+              <h2 class="text-sm text-subtle">{group.title}</h2>
+              <ul class="mt-4 space-y-2.5 text-[0.9375rem]">
+                {group.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="hover:underline hover:underline-offset-4"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div
+      class="mt-16 flex flex-col gap-3 border-t border-line pt-6 text-sm text-subtle sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} OneUp Digital Studio. Chalfont, PA.</p>
+      <ul class="flex gap-6">
+        <li>
+          <a href="/privacy-policy" class="hover:text-ink">Privacy policy</a>
+        </li>
+        <li>
+          <a href="/terms-of-service" class="hover:text-ink">Terms of service</a
+          >
+        </li>
+      </ul>
+    </div>
+  </Container>
+</footer>

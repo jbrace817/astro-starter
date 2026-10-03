@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Container from "@/components/Container";
+import { links } from "@/data/site";
+import james from "@/assets/team/james-brace.webp";
+---
+
+<section class="py-20 md:py-28 lg:py-32" aria-labelledby="about-title">
+  <Container>
+    <div class="grid gap-12 md:grid-cols-12 md:items-center md:gap-10">
+      <div class="md:col-span-5" data-reveal>
+        <Image
+          src={james}
+          alt="James Brace, founder of OneUp Digital Studio"
+          widths={[400, 652]}
+          sizes="(min-width: 768px) 38vw, 100vw"
+          class="aspect-[4/5] h-auto w-full rounded-card object-cover object-top"
+        />
+      </div>
+      <div class="md:col-span-6 md:col-start-7" data-reveal>
+        <h2 id="about-title" class="text-h2">You Work Directly With James</h2>
+        <div class="mt-8 space-y-5 text-lead text-subtle">
+          <p>
+            OneUp is a small studio in Chalfont. I started it after more than 15
+            years in IT and corporate work.
+          </p>
+          <p>
+            I kept seeing good local businesses stuck with slow websites that
+            brought in nothing. So I built the process I wished they had.
+          </p>
+          <p class="text-ink">
+            When you call, you get me. The person you talk to is the person
+            building your site.
+          </p>
+        </div>
+        <a
+          href={links.about}
+          class="group mt-10 inline-flex items-center gap-2 font-medium"
+        >
+          More about James
+          <Icon
+            name="lucide:arrow-right"
+            class="size-4 transition-transform duration-200 group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </a>
+      </div>
+    </div>
+  </Container>
+</section>

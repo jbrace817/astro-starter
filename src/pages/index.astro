@@ -1,7 +1,95 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Hero from "@/components/home/Hero.astro";
+import Problem from "@/components/home/Problem.astro";
+import Process from "@/components/home/Process.astro";
+import Services from "@/components/home/Services.astro";
+import Work from "@/components/home/Work.astro";
+import Plans from "@/components/home/Plans.astro";
+import Testimonial from "@/components/home/Testimonial.astro";
+import About from "@/components/home/About.astro";
+import Faq from "@/components/home/Faq.astro";
+import FinalCta from "@/components/home/FinalCta.astro";
+import { contact, faqs, serviceAreas, testimonial } from "@/data/site";
+
+const site = Astro.site!.href;
+
+// TODO: add sameAs (Google Business Profile, Yelp) once the profile URLs are final.
+const business = {
+  "@type": "ProfessionalService",
+  "@id": `${site}#business`,
+  name: "OneUp Digital Studio",
+  url: site,
+  telephone: "+1-215-602-4261",
+  email: contact.email,
+  priceRange: "$149–$249/mo",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Chalfont",
+    addressRegion: "PA",
+    addressCountry: "US",
+  },
+  areaServed: [
+    { "@type": "AdministrativeArea", name: "Bucks County, PA" },
+    { "@type": "AdministrativeArea", name: "Montgomery County, PA" },
+    ...serviceAreas.towns.map((t) => ({
+      "@type": "City",
+      name: `${t.name}, PA`,
+    })),
+    { "@type": "City", name: "New Britain, PA" },
+  ],
+  founder: { "@id": `${site}#james` },
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    business,
+    {
+      "@type": "Person",
+      "@id": `${site}#james`,
+      name: "James Brace",
+      jobTitle: "Founder",
+      worksFor: { "@id": `${site}#business` },
+      url: new URL("/about", site).href,
+    },
+    {
+      "@type": "Review",
+      itemReviewed: { "@id": `${site}#business` },
+      reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
+      author: { "@type": "Organization", name: testimonial.author },
+      reviewBody: testimonial.quote,
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    },
+  ],
+};
 ---
 
-<Layout title="Astro Starter">
-  <h1 class="text-4xl font-bold">Astro Starter</h1>
+<Layout
+  title="Web Design Bucks County, PA | OneUp Digital Studio"
+  description="Web design in Bucks County that starts with research. Free competitor report, custom design, Google Maps setup and a $0 build fee. Book a call with James."
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(schema)}
+  />
+
+  <Hero />
+  <Problem />
+  <Process />
+  <Services />
+  <Work />
+  <Plans />
+  <Testimonial />
+  <About />
+  <Faq />
+  <FinalCta />
 </Layout>
