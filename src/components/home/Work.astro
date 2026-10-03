@@ -4,6 +4,10 @@ import { Icon } from "astro-icon/components";
 import Container from "@/components/Container";
 import capitalSite from "@/assets/work/capital-desktop.png";
 import piccionesSite from "@/assets/work/picciones-desktop.png";
+import direnziMark from "@/assets/logos/direnzi-mark.svg";
+import direnziWordmark from "@/assets/logos/direnzi-wordmark.svg";
+import capitalLogo from "@/assets/logos/capital-cleaning.svg";
+import piccionesEmblem from "@/assets/logos/picciones-emblem.png";
 
 // Di Renzi monthly Google impressions, from the case study. Bars are drawn to scale.
 const before = 619;
@@ -32,7 +36,53 @@ const sites = [
   aria-labelledby="work-title"
 >
   <Container>
-    <h2 id="work-title" class="text-h2" data-reveal>Work With Results</h2>
+    <div
+      class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
+      data-reveal
+    >
+      <h2 id="work-title" class="text-h2">Work With Results</h2>
+
+      <!-- Client marks, moved here from the hero. -->
+      <ul
+        class="flex flex-wrap items-center gap-x-8 gap-y-4 opacity-60 grayscale lg:pb-2"
+        aria-label="Clients: Di Renzi Brothers, Capital Cleaning, Piccione's Heating & Cooling"
+      >
+        <li class="flex items-center gap-2">
+          <img
+            src={direnziMark.src}
+            width={direnziMark.width}
+            height={direnziMark.height}
+            alt=""
+            class="h-6 w-auto"
+          />
+          <img
+            src={direnziWordmark.src}
+            width={direnziWordmark.width}
+            height={direnziWordmark.height}
+            alt=""
+            class="hidden h-3 w-auto brightness-0 sm:block"
+          />
+        </li>
+        <li>
+          <img
+            src={capitalLogo.src}
+            width={capitalLogo.width}
+            height={capitalLogo.height}
+            alt=""
+            class="h-6 w-auto brightness-0"
+          />
+        </li>
+        <li class="flex items-center gap-2">
+          <Image
+            src={piccionesEmblem}
+            alt=""
+            width={60}
+            class="h-6 w-auto"
+          />
+          <span class="text-xs font-semibold tracking-[0.04em]">PICCIONE'S</span>
+        </li>
+      </ul>
+    </div>
 
     <article
       class="mt-14 grid gap-12 rounded-panel surface-dark p-7 sm:p-10 md:mt-20 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-10 lg:p-14"

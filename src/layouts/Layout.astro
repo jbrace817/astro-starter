@@ -60,7 +60,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <TailwindIndicator />
 
     <script>
-      import { animate, scroll } from "motion";
+      import { animate } from "motion";
       import { onVisible, slideUp } from "@/utils/animations";
 
       const root = document.documentElement;
@@ -81,15 +81,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             ),
           );
         });
-
-        // A light take on the old hero device scroll: the frame rises a little.
-        const device = document.querySelector("[data-hero-device]");
-        if (device) {
-          scroll(animate(device, { y: [0, -40] }, { ease: "linear" }), {
-            target: device,
-            offset: ["start end", "end start"],
-          });
-        }
       }
     </script>
   </body>
